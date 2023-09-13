@@ -1,15 +1,60 @@
-Source: template-repository
-Section: unknown
+Source: yuzu
+Section: games
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Andrea Pappacoda <andrea@pappacoda.it>
+Build-Depends: debhelper-compat (= 13)
+Build-Depends-Arch: catch2 (>= 2.13.7) <!nocheck>,
+                    gcc-13,
+                    g++-13,
+                    cmake (>= 3.15),
+                    glslang-tools,
+                    libavcodec-dev,
+                    libavfilter-dev,
+                    libavutil-dev,
+                    libcpp-httplib-dev,
+                    libcpp-jwt-dev,
+                    libcubeb-dev,
+                    libboost1.81-dev,
+                    libboost-context1.81-dev,
+                    libdynarmic-dev,
+                    libenet-dev,
+                    libfmt-dev (>= 9.0.0),
+                    libinih-dev,
+                    liblz4-dev (>= 1.8),
+                    libmbedtls-dev,
+                    libmicroprofile-dev,
+                    libopus-dev,
+                    libsdl2-dev,
+                    libswscale-dev,
+                    libusb-1.0-0-dev,
+                    libva-dev,
+                    libvulkan-dev (>= 1.3.238),
+                    libxbyak-dev [any-amd64],
+                    libzstd-dev (>= 1.5),
+                    llvm-dev,
+                    nlohmann-json3-dev (>= 3.8),
+                    pkg-config,
+                    qtbase5-dev,
+                    qtbase5-private-dev,
+                    qtmultimedia5-dev,
+                    qttools5-dev,
+                    qtwebengine5-dev,
+                    spirv-headers,
+                    zlib1g-dev (>= 1.2)
+Standards-Version: 4.6.2
+Homepage: https://yuzu-emu.org
+Vcs-Git: https://salsa.debian.org/debian/yuzu.git
+Vcs-Browser: https://salsa.debian.org/debian/yuzu
+Rules-Requires-Root: no
 
-Package: template-repository
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Package: yuzu
+Architecture: any-amd64 any-arm64
+Depends: sse4.2-support [any-amd64],
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Nintendo Switch Emulator
+ yuzu is an experimental open-source emulator for the Nintendo Switch
+ from the creators of Citra.
+ .
+ It is written in C++ with portability in mind, with builds actively
+ maintained for Windows and Linux.

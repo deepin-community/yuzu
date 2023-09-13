@@ -1,0 +1,7 @@
+/usr/games/yuzu-room
+/usr/games/yuzu-cmd
+/usr/games/yuzu
+/usr/share/applications/org.yuzu_emu.yuzu.desktop
+/usr/share/icons/hicolor/scalable/apps/org.yuzu_emu.yuzu.svg
+/usr/share/mime/packages/org.yuzu_emu.yuzu.xml
+/usr/share/metainfo/org.yuzu_emu.yuzu.metainfo.xml

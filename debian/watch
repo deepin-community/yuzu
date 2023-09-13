@@ -1,0 +1,17 @@
+# Using /releases because /tags can't be sorted chronologically
+version=4
+opts="searchmode=plain, \
+  filenamemangle=s/.+\/mainline-@ANY_VERSION@/@PACKAGE@-$1\.tar\.gz/, \
+  pgpmode=none, \
+  repacksuffix=+ds, \
+  dversionmangle=auto" \
+https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases \
+https://api.github.com/repos/yuzu-emu/yuzu-mainline/tarball/mainline-@ANY_VERSION@ \
+debian
+
+opts="mode=git, \
+ component=sirit, \
+ pgpmode=none" \
+https://github.com/yuzu-emu/sirit.git \
+HEAD \
+ignore uupdate

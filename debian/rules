@@ -1,4 +1,79 @@
 #!/usr/bin/make -f
 
+# -lto because I use CMake's LTO support
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all optimize=+all,-lto qa=+all
+
+# -Werror=array-bounds is added by qa=+bug, triggers some false positives
+# -O2 is stripped because CMake already passes -O3
+export DEB_CXXFLAGS_MAINT_STRIP = -Werror=array-bounds -O2
+export CC=gcc-13
+export CXX=g++-13
+
+# yuzu requires CX16 instructions (CMPXCHG16B) to build, and they are
+# "only" available on Intel Core 2 or newer CPUs. The only way I know to
+# express that a Debian package depends on a set of instructions not
+# present in the baseline is to make it depend on an isa-support package.
+# Only sse3- and sse4.2-support are available, and there are some CPUs that
+# support SSE3 while not supporting CX16, so depending on that wouldn't be
+# strict enough. The only safe dependency is then sse4.2-support.
+# But depending on sse4.2-support while not making use of the SSE4.2
+# extensions would be a waste, and it makes sense to allow GCC to generate
+# optimized code that uses SSE4.2 extensions, for performance reasons.
+# As both CMPXCHG16B and SSE4_2 are part of the x86-64-v2
+# micro-architecture level, I can simply tell GCC to generate code for that
+# target.
+# Upstream is now building with -march=x86-64-v2 too.
+# References:
+# https://github.com/yuzu-emu/yuzu/commit/626cc44d7ababf037cbf1f0a6fd1372efc296b64
+# https://gitlab.com/x86-psABIs/x86-64-ABI/-/wikis/uploads/01de35b2c8adc7545de52604cc45d942/x86-64-psABI-2021-05-20.pdf#page=16
+# https://github.com/yuzu-emu/yuzu/pull/7497
+# https://github.com/yuzu-emu/yuzu/pull/9442
+
+ifeq ($(DEB_HOST_ARCH_CPU),amd64)
+  export DEB_CFLAGS_MAINT_APPEND   = -march=x86-64-v2
+  export DEB_CXXFLAGS_MAINT_APPEND = -march=x86-64-v2
+endif
+
+test := false
+
+ifeq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
+  build_type := Release
+  lto := true
+else
+  build_type := None
+  lto := false
+endif
+
+# DEB_VERSION, DEB_VENDOR
+include /usr/share/dpkg/pkg-info.mk
+include /usr/share/dpkg/vendor.mk
+
 %:
 	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		-DGIT_BRANCH=$(DEB_VENDOR) \
+		-DGIT_DESC=mainline-$(DEB_VERSION) \
+		-DGIT_REV=mainline-$(DEB_VERSION) \
+		-DCMAKE_INSTALL_BINDIR=games \
+		-DENABLE_QT_TRANSLATION=true \
+		-DYUZU_USE_QT_WEB_ENGINE=true \
+		-DYUZU_USE_EXTERNAL_SDL2=false \
+		-DYUZU_USE_EXTERNAL_VULKAN_HEADERS=true \
+		-DYUZU_USE_BUNDLED_SDL2=false \
+		-DYUZU_USE_BUNDLED_QT=false \
+		-DYUZU_USE_BUNDLED_FFMPEG=false \
+		-DYUZU_TESTS=$(test) \
+		-DSIRIT_USE_SYSTEM_SPIRV_HEADERS=true \
+		-DCMAKE_BUILD_TYPE=$(build_type) \
+		-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=$(lto) \
+		-DCMAKE_POLICY_DEFAULT_CMP0069=NEW
+
+override_dh_auto_test:
+	supports_x86_64_v2=$$(lscpu | awk '/cx16/ && /lahf/ && /popcnt/ && /sse3/ && /sse4_1/ && /sse4_2/ && /ssse3/' | tr -d '[:space:]') ; \
+	if [ '$(DEB_HOST_BUILD_CPU)' = amd64 ] && [ -z "$$supports_x86_64_v2" ]; then \
+		echo "Your CPU doesn't support the x86-64-v2 micro-architecture level. Tests will be skipped." ; \
+	else \
+		dh_auto_test ; \
+	fi

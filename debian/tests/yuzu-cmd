@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -eu
+
+# cd "$AUTOPKGTEST_TMP"
+
+yuzu-cmd --help
+yuzu-cmd --version
