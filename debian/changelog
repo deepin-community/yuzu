@@ -1,5 +1,87 @@
-template-repository (1.0-1) unstable; urgency=medium
+yuzu (0-1562deepin1) unstable; urgency=medium
 
-  * Initial release
+  * mii_types: Remove null terminator check
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Yutao Meng <mengyutao@deepin.org>  Wed, 30 Aug 2023 13:24:39 +0800
+
+yuzu (0-1335+ds-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload
+  * d/control: strip :native from glslang-tools build dependency
+
+ -- Bastian Germann <bage@debian.org>  Sun, 13 Aug 2023 00:38:19 +0200
+
+yuzu (0-1335+ds-1) unstable; urgency=medium
+
+  * New upstream version 0-1335+ds
+  * d/control: build with vulkan >= 1.3.238
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Sat, 11 Feb 2023 12:29:45 +0100
+
+yuzu (0-1330+ds-1) unstable; urgency=medium
+
+  * New upstream version 0-1330+ds
+  * d/copyright: exclude externals/demangle
+  * d/control: build-depend on llvm-dev
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Mon, 06 Feb 2023 00:34:50 +0100
+
+yuzu (0-1317+ds-1) unstable; urgency=medium
+
+  * New upstream version 0-1317+ds
+  * d/clean: remove sirit symlink in debian/clean
+  * d/copyright: add externals/demangle/ files
+  * d/patches: revert Catch2 v3 switch.
+    Catch2 version 3 won't be available in Debian for a while.
+  * d/rules: build tests even if x86-64-v2 is not supported
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Mon, 23 Jan 2023 22:03:44 +0100
+
+yuzu (0-1312+ds-1) unstable; urgency=medium
+
+  * New upstream version 0-1312+ds
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Thu, 19 Jan 2023 09:08:38 +0100
+
+yuzu (0-1311+ds-1) unstable; urgency=medium
+
+  * New upstream version 0-1311+ds
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Wed, 18 Jan 2023 09:25:02 +0100
+
+yuzu (0-1304+ds-1) unstable; urgency=medium
+
+  * New upstream version 0-1304+ds
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Thu, 12 Jan 2023 10:27:14 +0100
+
+yuzu (0-1299+ds-1) unstable; urgency=medium
+
+  * New upstream version 0-1299+ds
+  * d/rules: honour noopt build profile
+  * d/tests: add yuzu-cmd autopkgtest
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Sat, 07 Jan 2023 18:52:03 +0100
+
+yuzu (0-1284+ds-1) unstable; urgency=medium
+
+  * New upstream version 0-1284+ds
+  * d/{control,rules}: build on arm64
+  * d/salsa-ci.yml: re-enable arm64 cross-builds
+  * d/patches: revert libvulkan-dev 1.3.238 requirement
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Tue, 27 Dec 2022 01:40:46 +0100
+
+yuzu (0-1276+ds-1) unstable; urgency=medium
+
+  * New upstream version 0-1276+ds
+  * d/copyright: add SMAA files
+  * d/patches: drop upstreamed patches
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Wed, 21 Dec 2022 10:09:41 +0100
+
+yuzu (0-1176+ds-1) unstable; urgency=low
+
+  * Initial release. Closes: #947399
+
+ -- Andrea Pappacoda <andrea@pappacoda.it>  Fri, 23 Sep 2022 13:11:59 +0200

@@ -1,0 +1,46 @@
+.\" SPDX-FileCopyrightText: 2022 Andrea Pappacoda <andrea@pappacoda.it>
+.\" SPDX-License-Identifier: GPL-2.0-or-later
+.Dd 2022-09-23
+.Dt YUZU-ROOM 1
+.Os
+.
+.Sh NAME
+.Nm yuzu-room
+.Nd manage yuzu network rooms
+.
+.Sh SYNOPSIS
+.Nm
+.Fl n | -room-name Ar name
+.Fl d | -room-description Ar description
+.Fl p | -port Ar number
+.Fl w | -password Ar password
+.Fl g | -preferred-game Ar name
+.Fl i | -preferred-game-id Ar id
+.Op Fl u | -username Ar name
+.Fl t | -token Ar token
+.Fl a | -web-api-url Ar url
+.Fl b | -ban-list-file Ar file
+.Fl l | -log-file Ar file
+.Fl e | -enable-yuzu-mods
+.Fl h | -help
+.Fl v | -version
+.
+.Sh DESCRIPTION
+.Nm
+allows you to set up networked game rooms to play with your friends.
+.
+.Sh EXIT STATUS
+.Ex -std
+.Sh SEE ALSO
+.Xr yuzu 1
+.Xr yuzu-cmd 1
+.
+.Sh AUTHORS
+.An -nosplit
+.Nm
+was written by the
+.An yuzu Emulator Project .
+.Pp
+This manual page was written by
+.An Andrea Pappacoda Aq Mt andrea@pappacoda.it
+for the Debian project (and may be used by others).

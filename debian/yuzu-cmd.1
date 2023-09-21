@@ -1,0 +1,55 @@
+.\" SPDX-FileCopyrightText: 2022 Andrea Pappacoda <andrea@pappacoda.it>
+.\" SPDX-License-Identifier: GPL-2.0-or-later
+.Dd 2022-09-01
+.Dt YUZU-CMD 1
+.Os
+.
+.Sh NAME
+.Nm yuzu-cmd
+.Nd yuzu command line client
+.
+.Sh SYNOPSIS
+.Nm
+.Op Fl c | -config Ar file
+.Op Fl f | -fullscreen
+.Op Fl h | -help
+.Op Fl m | -multiplayer Ar nick:password@address:port
+.Op Fl p | -program Ar argument
+.Op Fl v | -version
+.Ar file
+.
+.Sh DESCRIPTION
+.Nm
+allows you to emulate Switch games from your terminal.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl c Ar file , Fl -config Ar file
+Load the specified configuration file
+.It Fl f , Fl -fullscreen
+Start in fullscreen mode
+.It Fl h , Fl -help
+Display a help message and exit
+.It Fl m Ar nick:password@address:port , Fl -multiplayer Ar nick:password@address:port
+Nickname, password, address and port for multiplayer
+.It Fl p Ar argument , Fl -program Ar argument
+Pass following string as arguments to executable
+.It Fl v , Fl -version
+Output version information and exit
+.El
+.
+.Sh EXIT STATUS
+.Ex -std
+.Sh SEE ALSO
+.Xr yuzu-cmd 1
+.Xr yuzu-room 1
+.
+.Sh AUTHORS
+.An -nosplit
+.Nm
+was written by the
+.An yuzu Emulator Project .
+.Pp
+This manual page was written by
+.An Andrea Pappacoda Aq Mt andrea@pappacoda.it
+for the Debian project (and may be used by others).
